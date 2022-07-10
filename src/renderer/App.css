@@ -9,8 +9,8 @@ body {
     #011104 129.35%
   );
   font-family: sans-serif;
-  overflow-y: hidden;
   display: flex;
+  /* overflow-y: hidden; */
   justify-content: center;
   align-items: center;
 }
@@ -48,4 +48,15 @@ button:hover {
 
 li {
   list-style: none;
+}
+
+p.error,
+span .error {
+  color: red;
+  font-weight: bolder;
+}
+
+button.error {
+  background-color: #ff0000;
+  color: white;
 }
