@@ -19,13 +19,6 @@ export default class MenuBuilder {
   }
 
   buildMenu(): Menu {
-    // if (
-    //   process.env.NODE_ENV === 'development' ||
-    //   process.env.DEBUG_PROD === 'true'
-    // ) {
-    //   this.setupDevelopmentEnvironment();
-    // }
-
     const template =
       process.platform === 'darwin'
         ? this.buildDarwinTemplate()
@@ -37,34 +30,19 @@ export default class MenuBuilder {
     return menu;
   }
 
-  // setupDevelopmentEnvironment(): void {
-  //   this.mainWindow.webContents.on('context-menu', (_, props) => {
-  //     const { x, y } = props;
-
-  //     Menu.buildFromTemplate([
-  //       {
-  //         label: 'Inspect element',
-  //         click: () => {
-  //           this.mainWindow.webContents.inspectElement(x, y);
-  //         },
-  //       },
-  //     ]).popup({ window: this.mainWindow });
-  //   });
-  // }
-
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'Electron',
+      label: 'Budget Manager',
       submenu: [
         {
-          label: 'About ElectronReact',
+          label: 'About Budget Manager',
           selector: 'orderFrontStandardAboutPanel:',
         },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         {
-          label: 'Hide ElectronReact',
+          label: 'Hide Budget Manager',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
@@ -155,29 +133,17 @@ export default class MenuBuilder {
       label: 'Help',
       submenu: [
         {
-          label: 'Learn More',
-          click() {
-            shell.openExternal('https://electronjs.org');
-          },
-        },
-        {
-          label: 'Documentation',
+          label: 'Report an Issue',
           click() {
             shell.openExternal(
-              'https://github.com/electron/electron/tree/main/docs#readme'
+              'https://github.com/zskelton/Budget_Manager/issues'
             );
           },
         },
         {
-          label: 'Community Discussions',
+          label: 'About',
           click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
+            shell.openExternal('https://github.com/zskelton/Budget_Manager');
           },
         },
       ],
@@ -224,15 +190,6 @@ export default class MenuBuilder {
                   },
                 },
                 {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click: () => {
-                    this.mainWindow.setFullScreen(
-                      !this.mainWindow.isFullScreen()
-                    );
-                  },
-                },
-                {
                   label: 'Toggle &Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
@@ -256,29 +213,17 @@ export default class MenuBuilder {
         label: 'Help',
         submenu: [
           {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('https://electronjs.org');
-            },
-          },
-          {
-            label: 'Documentation',
+            label: 'Report an Issue',
             click() {
               shell.openExternal(
-                'https://github.com/electron/electron/tree/main/docs#readme'
+                'https://github.com/zskelton/Budget_Manager/issues'
               );
             },
           },
           {
-            label: 'Community Discussions',
+            label: 'About',
             click() {
-              shell.openExternal('https://www.electronjs.org/community');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/electron/electron/issues');
+              shell.openExternal('https://github.com/zskelton/Budget_Manager');
             },
           },
         ],

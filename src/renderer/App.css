@@ -1,22 +1,30 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
 body {
   position: relative;
   color: white;
   height: 100vh;
   background: linear-gradient(
     200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
+    #c4f8c4 -29.09%,
+    #3ebe4f 51.77%,
+    #011104 129.35%
   );
   font-family: sans-serif;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+a {
+  color: #242424;
+  text-decoration: underline;
+  font-weight: bold;
+  margin: 5px;
+}
+
+a:hover {
+  color: rgb(248, 248, 248);
+  text-decoration: none;
 }
 
 button {
@@ -40,23 +48,4 @@ button:hover {
 
 li {
   list-style: none;
-}
-
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
 }

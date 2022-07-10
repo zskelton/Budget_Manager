@@ -1,39 +1,64 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 import './App.css';
 
-const Hello = () => {
+const Main = () => {
+  const navigate = useNavigate();
+
+  const handleBtn = (event: any) => {
+    event?.preventDefault();
+    navigate('/page1');
+  };
+
   return (
     <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
+      <h1>Budget Manager</h1>
+      <hr />
+      <p>
+        <span>
+          Learn about
+          <a
+            href="https://github.com/zskelton/Budget_Manager"
+            target="_blank"
+            rel="noreferrer"
+          >
+            this project
+          </a>
+          on-line.
+        </span>
+      </p>
+      <div>
+        <button type="button" onClick={handleBtn}>
+          Next Page
+        </button>
       </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+    </div>
+  );
+};
+
+const Page1 = () => {
+  const navigate = useNavigate();
+
+  const handleBtn = (event: any) => {
+    event?.preventDefault();
+    navigate('/');
+  };
+
+  return (
+    <div>
+      <h1>Budget Manager</h1>
+      <hr />
+      <p>
+        <span>You changed pages!</span>
+      </p>
+      <div>
+        <button type="button" onClick={handleBtn}>
+          Previous Page
+        </button>
       </div>
     </div>
   );
@@ -43,7 +68,8 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/page1" element={<Page1 />} />
       </Routes>
     </Router>
   );
