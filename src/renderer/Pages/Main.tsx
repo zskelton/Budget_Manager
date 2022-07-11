@@ -3,22 +3,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
-import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../App.css';
 import * as XLSX from 'xlsx';
 
-const Main = () => {
-  const [sheet, setSheet] = useState<any | React.Dispatch<any>>(null);
-  const [error, setError] = useState<boolean | React.Dispatch<any>>(true);
-
-  const navigate = useNavigate();
-
-  const handleBtn = (event: any) => {
-    event?.preventDefault();
-    navigate('/page1');
-  };
-
+type XLSOpenerProps = {
+  setSheet: React.Dispatch<any>;
+  setError: React.Dispatch<any>;
+};
+const XLSOpener = ({ setSheet, setError }: XLSOpenerProps) => {
+  // HANDLES
   const handleFile = (event: any) => {
     try {
       event?.preventDefault();
@@ -45,10 +39,49 @@ const Main = () => {
     }
   };
 
-  // console.log(sheet);
-
+  // COMPONENT
   return (
-    <div>
+    <div id="XLSOpener">
+      <p>Load File:</p>
+      <input type="file" onChange={handleFile} />
+    </div>
+  );
+};
+
+type ErrorReporterProps = {
+  setError: React.Dispatch<any>;
+};
+const ErrorReporter = ({ setError }: ErrorReporterProps) => {
+  // HANDLES
+  const handleBtn = (event: React.SyntheticEvent) => {
+    event?.preventDefault();
+    setError(false);
+  };
+
+  // COMPONENT
+  return (
+    <div id="ErrorReporter">
+      <p className="error" data-testid="error-txt">
+        Error!
+      </p>
+      <div>
+        <button
+          type="button"
+          onClick={handleBtn}
+          className="error"
+          data-testid="error-btn"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const HeaderBanner = () => {
+  // COMPONENT
+  return (
+    <div id="HeaderBanner">
       <h1>Budget Manager</h1>
       <hr />
       <p>
@@ -64,28 +97,17 @@ const Main = () => {
           on-line.
         </span>
       </p>
-      <div>
-        <button type="button" onClick={handleBtn}>
-          Next Page
-        </button>
-        {error && (
-          <div>
-            <p className="error" data-testid="error-txt">
-              Error Detected!
-            </p>
-            <button
-              type="button"
-              className="error"
-              onClick={() => setError(false)}
-              data-testid="error-btn"
-            >
-              Remove Error
-            </button>
-          </div>
-        )}
-        <p>Load File:</p>
-        <input type="file" onChange={handleFile} />
-      </div>
+    </div>
+  );
+};
+
+type BudgetTableProps = {
+  sheet: any[];
+};
+const BudgetTable = ({ sheet }: BudgetTableProps) => {
+  // COMPONENT
+  return (
+    <div id="BudgetTable">
       {sheet?.length > 0 && (
         <div>
           <h3>Table:</h3>
@@ -111,6 +133,28 @@ const Main = () => {
           </table>
         </div>
       )}
+    </div>
+  );
+};
+
+const Main = () => {
+  // STATE
+  const [sheet, setSheet] = useState<any | React.Dispatch<any>>(null);
+  const [error, setError] = useState<boolean | React.Dispatch<any>>(true);
+
+  // COMPONENT
+  return (
+    <div id="page">
+      <div id="header">
+        <HeaderBanner />
+      </div>
+      <div id="body">
+        {error && <ErrorReporter setError={setError} />}
+        <XLSOpener setSheet={setSheet} setError={setError} />
+      </div>
+      <div id="footer">
+        <BudgetTable sheet={sheet} />
+      </div>
     </div>
   );
 };

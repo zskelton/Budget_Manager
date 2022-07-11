@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from '../renderer/App';
-import { Main, Page1 } from '../renderer/Pages';
+import { Main } from '../renderer/Pages';
 
 describe('App Rendering', () => {
   it('App Component Renders.', () => {
@@ -14,16 +14,6 @@ describe('App Rendering', () => {
       render(
         <Router>
           <Main />
-        </Router>
-      )
-    ).toBeTruthy();
-  });
-
-  it('Page 1 Component Renders.', () => {
-    expect(
-      render(
-        <Router>
-          <Page1 />
         </Router>
       )
     ).toBeTruthy();
