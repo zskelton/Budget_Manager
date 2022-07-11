@@ -11,8 +11,8 @@ body {
   font-family: sans-serif;
   display: flex;
   /* overflow-y: hidden; */
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
 }
 
 a {

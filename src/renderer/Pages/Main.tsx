@@ -10,8 +10,9 @@ import * as XLSX from 'xlsx';
 type XLSOpenerProps = {
   setSheet: React.Dispatch<any>;
   setError: React.Dispatch<any>;
+  setResetable: React.Dispatch<any>;
 };
-const XLSOpener = ({ setSheet, setError }: XLSOpenerProps) => {
+const XLSOpener = ({ setSheet, setError, setResetable }: XLSOpenerProps) => {
   // HANDLES
   const handleFile = (event: any) => {
     try {
@@ -32,8 +33,10 @@ const XLSOpener = ({ setSheet, setError }: XLSOpenerProps) => {
         ws_json.forEach((o: any, i: number) => (o.id = i + 1));
         // Set State
         setSheet(ws_json);
+        setResetable(true);
       };
     } catch (e) {
+      setResetable(false);
       setError(true);
       console.error(e);
     }
@@ -101,6 +104,23 @@ const HeaderBanner = () => {
   );
 };
 
+type ResetFormProps = {
+  handleReset: React.Dispatch<any>;
+};
+const ResetForm = ({ handleReset }: ResetFormProps) => {
+  // COMPONENT
+  return (
+    <div id="ResetForm">
+      <p data-testid="reset-txt">Reset</p>
+      <div>
+        <button type="button" onClick={handleReset} data-testid="reset-btn">
+          Reset Form
+        </button>
+      </div>
+    </div>
+  );
+};
+
 type BudgetTableProps = {
   sheet: any[];
 };
@@ -140,7 +160,17 @@ const BudgetTable = ({ sheet }: BudgetTableProps) => {
 const Main = () => {
   // STATE
   const [sheet, setSheet] = useState<any | React.Dispatch<any>>(null);
-  const [error, setError] = useState<boolean | React.Dispatch<any>>(true);
+  const [error, setError] = useState<boolean | React.Dispatch<any>>(false);
+  const [resetable, setResetable] = useState<boolean | React.Dispatch<any>>(
+    false
+  );
+
+  // HANDLES
+  const handleReset = () => {
+    setSheet(null);
+    setError(false);
+    setResetable(false);
+  };
 
   // COMPONENT
   return (
@@ -150,7 +180,12 @@ const Main = () => {
       </div>
       <div id="body">
         {error && <ErrorReporter setError={setError} />}
-        <XLSOpener setSheet={setSheet} setError={setError} />
+        {resetable && <ResetForm handleReset={handleReset} />}
+        <XLSOpener
+          setSheet={setSheet}
+          setError={setError}
+          setResetable={setResetable}
+        />
       </div>
       <div id="footer">
         <BudgetTable sheet={sheet} />
